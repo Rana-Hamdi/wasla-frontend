@@ -1,0 +1,92 @@
+<div class="dashboard">
+
+  <aside class="sidebar">
+    <h1>📦 Wasla</h1>
+
+    <nav>
+      <a routerLink="/dashboard">Overview</a>
+      <a routerLink="/my-orders">My Orders</a>
+      <a routerLink="/create-order">+ Create Shipment</a>
+    </nav>
+
+    <a routerLink="/login" class="logout">Sign out</a>
+  </aside>
+
+  <main class="content">
+
+    <header>
+      <h3>My Business</h3>
+      <span>Business Dashboard</span>
+    </header>
+
+    <div class="welcome">
+      <div>
+        <h1>Welcome to Wasla!</h1>
+        <p>Here's what's happening with your shipments.</p>
+      </div>
+
+      <a routerLink="/create-order" class="create-btn">
+        + Create Shipment
+      </a>
+    </div>
+
+    <div class="stats">
+      <div class="card">
+        <p>Total Shipments</p>
+        <h2>{{ orders.length }}</h2>
+      </div>
+
+      <div class="card">
+        <p>In Transit</p>
+        <h2>{{ countStatus('in_transit') }}</h2>
+      </div>
+
+      <div class="card">
+        <p>Delivered</p>
+        <h2>{{ countStatus('delivered') }}</h2>
+      </div>
+
+      <div class="card">
+        <p>COD Collected</p>
+        <h2>{{ totalCOD() }} EGP</h2>
+      </div>
+    </div>
+
+    <section class="orders-section">
+      <div class="section-title">
+        <h2>Recent Shipments</h2>
+        <a routerLink="/my-orders">View All</a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tracking ID</th>
+            <th>Customer</th>
+            <th>Destination</th>
+            <th>COD</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (order of orders; track order.tracking_number) {
+            <tr>
+              <td>{{ order.tracking_number }}</td>
+              <td>{{ order.customer_name }}</td>
+              <td>{{ order.dropoff_address }}</td>
+              <td>{{ order.cod_amount }} EGP</td>
+              <td>{{ order.status }}</td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5">No shipments yet.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+</div>

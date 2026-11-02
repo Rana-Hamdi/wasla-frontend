@@ -1,0 +1,161 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+}
+
+.sidebar {
+  width: 240px;
+  background: #193c56;
+  color: white;
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h1 {
+  margin-bottom: 45px;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+nav a, .logout {
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+nav a:hover, .logout:hover {
+  background: #31566f;
+}
+
+.logout {
+  margin-top: auto;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+  min-width: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+}
+
+.welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.welcome h1 {
+  color: #193c56;
+}
+
+.welcome p {
+  color: #667788;
+}
+
+.create-btn {
+  background: #ff7900;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border: 1px solid #dce4ed;
+  border-radius: 12px;
+}
+
+.card p {
+  color: #667788;
+}
+
+.card h2 {
+  color: #193c56;
+  font-size: 28px;
+}
+
+.orders-section {
+  background: white;
+  margin-top: 30px;
+  padding: 25px;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title a {
+  color: #ff7900;
+  text-decoration: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  padding: 15px;
+  border-bottom: 1px solid #e5eaf0;
+  text-align: left;
+}
+
+th {
+  color: #667788;
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .welcome {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 500px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}

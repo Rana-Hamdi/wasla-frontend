@@ -1,0 +1,60 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <h1>📦 Wasla</h1>
+    <h2>Welcome Back!</h2>
+    <p>Log in to manage your deliveries.</p>
+
+    <form #form="ngForm" (ngSubmit)="login()">
+
+      <label>Email Address</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="Enter your email"
+        email
+        required
+      >
+
+      <label>Password</label>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Enter your password"
+        required
+      >
+
+      <label class="show-password">
+        <input
+          type="checkbox"
+          name="showPassword"
+          [(ngModel)]="showPassword"
+        >
+        Show Password
+      </label>
+
+      <button type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+
+    </form>
+
+    @if (message) {
+      <p class="success">{{ message }}</p>
+    }
+
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+
+    <p class="register-text">
+      Don't have an account?
+      <a routerLink="/register">Register</a>
+    </p>
+
+  </div>
+
+</div>

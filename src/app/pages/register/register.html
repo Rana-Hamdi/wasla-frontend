@@ -1,0 +1,96 @@
+<div class="register-page">
+
+  <div class="register-card">
+
+    <h1>📦 Wasla</h1>
+    <h2>Create your account</h2>
+    <p>Start managing your deliveries with Wasla.</p>
+
+    <form #form="ngForm" (ngSubmit)="register()">
+
+      <label>Full Name</label>
+      <input
+        type="text"
+        name="full_name"
+        [(ngModel)]="user.full_name"
+        placeholder="Enter your full name"
+        required
+      >
+
+      <label>Business Name</label>
+      <input
+        type="text"
+        name="business_name"
+        [(ngModel)]="user.business_name"
+        placeholder="Enter your store name"
+      >
+
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="user.email"
+        placeholder="Enter your email"
+        required
+      >
+
+      <label>Phone Number</label>
+      <input
+        type="tel"
+        name="phone"
+        [(ngModel)]="user.phone"
+        placeholder="01XXXXXXXXX"
+        required
+      >
+
+      <label>Password</label>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        name="password"
+        [(ngModel)]="user.password"
+        placeholder="At least 8 characters"
+        minlength="8"
+        required
+      >
+
+      <label>Confirm Password</label>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        name="confirm_password"
+        [(ngModel)]="confirmPassword"
+        placeholder="Re-enter your password"
+        minlength="8"
+        required
+      >
+
+      <label>
+        <input
+          type="checkbox"
+          name="showPassword"
+          [(ngModel)]="showPassword"
+        >
+        Show passwords
+      </label>
+
+      <button type="submit" [disabled]="form.invalid || loading">
+        {{ loading ? 'Creating account...' : 'Create Account' }}
+      </button>
+
+    </form>
+
+    @if (message) {
+      <p class="success">{{ message }}</p>
+    }
+
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+
+    <p class="login-text">
+      Already have an account?
+      <a routerLink="/login">Log in</a>
+    </p>
+
+  </div>
+
+</div>
