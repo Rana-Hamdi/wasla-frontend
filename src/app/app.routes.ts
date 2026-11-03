@@ -5,6 +5,7 @@ import { Login } from './pages/login/login';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { CreateOrder } from './pages/create-order/create-order';
 import { MyOrders } from './pages/my-orders/my-orders';
+import { ManageOrders } from './pages/manage-orders/manage-orders';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'dashboard', component: Dashboard },
   { path: 'create-order', component: CreateOrder },
-  { path: 'my-orders', component: MyOrders }
+  { path: 'my-orders', component: MyOrders },
+  { path: 'manage-orders', component: ManageOrders }
 ];

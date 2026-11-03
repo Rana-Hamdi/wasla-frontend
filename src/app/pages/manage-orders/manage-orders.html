@@ -1,0 +1,100 @@
+<div class="dashboard">
+  <!-- Same sidebar navigation structure used by the existing Dashboard page -->
+  <aside class="sidebar">
+    <h1>📦 Wasla</h1>
+    <nav>
+      <a routerLink="/dashboard">Overview</a>
+      <a routerLink="/my-orders">My Orders</a>
+      <a routerLink="/create-order">+ Create Shipment</a>
+      <a routerLink="/manage-orders" class="active" aria-current="page">Manage Orders</a>
+    </nav>
+    <a routerLink="/login" class="logout">Sign out</a>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <span class="topbar-brand">Wasla Delivery Management</span>
+      <span class="topbar-profile">Admin</span>
+    </header>
+
+    <section class="page-heading">
+      <div>
+        <span class="eyebrow">ADMIN</span>
+        <h2>Manage Orders</h2>
+        <p>View and manage every shipment across the platform.</p>
+      </div>
+      <button type="button" class="export-button" (click)="exportOrders()">↓ Export orders</button>
+    </section>
+
+    <section class="orders-panel">
+      <div class="filters">
+        <input class="search" type="search" aria-label="Search orders" placeholder="Search order, customer, phone..."
+          [value]="searchText()" (input)="updateSearch($any($event.target).value)" />
+        <select aria-label="Filter by status" [value]="selectedStatus()" (change)="updateStatusFilter($any($event.target).value)">
+          <option value="all">All statuses</option>
+          @for (status of statuses; track status) { <option [value]="status">{{ formatStatus(status) }}</option> }
+        </select>
+        <select aria-label="Filter by governorate" [value]="selectedGovernorate()" (change)="updateGovernorateFilter($any($event.target).value)">
+          <option value="all">All governorates</option>
+          @for (governorate of governorates; track governorate) { <option [value]="governorate">{{ governorate }}</option> }
+        </select>
+        <button class="clear-button" type="button" (click)="resetFilters()">Clear filters</button>
+      </div>
+
+      @if (notice()) { <p class="notice" role="status">{{ notice() }}</p> }
+      @if (isLoading()) { <p class="message">Loading orders...</p> }
+      @if (errorMessage()) {
+        <div class="message error" role="alert">{{ errorMessage() }} <button type="button" (click)="getAllOrders()">Retry</button></div>
+      }
+
+      @if (!isLoading() && !errorMessage()) {
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tracking number</th>
+                <th>Customer</th>
+                <th>Route</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Amount</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (order of visibleOrders(); track order.id) {
+                <tr>
+                  <td class="tracking">{{ order.tracking_number }}</td>
+                  <td><strong>{{ order.customer_name }}</strong><small>{{ order.customer_phone }}</small></td>
+                  <td class="route" [title]="order.pickup_address + ' → ' + order.dropoff_address">{{ order.pickup_address }} → {{ order.dropoff_address }}</td>
+                  <td class="date">{{ order.created_at ? (order.created_at.slice(0, 10)) : '—' }}</td>
+                  <td><span class="badge" [class]="'badge ' + statusClass(order.status)">{{ formatStatus(order.status) }}</span></td>
+                  <td class="amount">EGP {{ formatPrice(order.total_customer_price) }}</td>
+                  <td class="actions">
+                    <select aria-label="Update order status" [value]="order.status" [disabled]="busyOrderId() !== null"
+                      (change)="changeOrderStatus(order, $any($event.target).value)">
+                      @for (status of statuses; track status) { <option [value]="status">{{ formatStatus(status) }}</option> }
+                    </select>
+                    <button type="button" class="delete-button" [disabled]="busyOrderId() !== null" (click)="deleteOrder(order)" [attr.aria-label]="'Delete order ' + order.tracking_number">🗑</button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td colspan="7" class="empty">No orders found.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <span>Showing {{ startIndex() }}–{{ endIndex() }} of {{ filteredOrders().length }} orders</span>
+          <div class="pagination-buttons">
+            <button type="button" (click)="previousPage()" [disabled]="currentPage() === 1">Previous</button>
+            @for (page of pages(); track page) {
+              <button type="button" [class.current]="currentPage() === page" (click)="goToPage(page)">{{ page }}</button>
+            }
+            <button type="button" (click)="nextPage()" [disabled]="currentPage() === totalPages()">Next</button>
+          </div>
+        </div>
+      }
+    </section>
+  </main>
+</div>
