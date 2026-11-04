@@ -1,0 +1,261 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.manage-orders {
+    width: 100%;
+}
+
+/* page header */
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #142D4E;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* table container */
+.orders-table {
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow-x: auto;
+}
+
+/* table */
+.orders-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/* table header */
+.orders-table th {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* table rows */
+.orders-table td {
+    padding: 18px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    font-size: 14px;
+}
+
+/* hover effect */
+.orders-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* last row */
+.orders-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-badge.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.assigned {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-badge.picked_up {
+    background-color: #e0e7ff;
+    color: #4338ca;
+}
+
+.status-badge.in_transit {
+    background-color: #cffafe;
+    color: #0e7490;
+}
+
+.status-badge.delivered {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-badge.cancelled {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-btn {
+    padding: 10px 18px;
+    background-color: white;
+    color: #193B56;
+    border: 1px solid #dce4ed;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+    background-color: #f1f5f9;
+    border-color: #193B56;
+}
+
+.page-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.current-page {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #193B56;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* status dropdown */
+.status-select {
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+}
+
+.status-select.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-select.assigned {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-select.picked_up {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.status-select.in_transit {
+    background: #cffafe;
+    color: #0e7490;
+}
+
+.status-select.delivered {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status-select.cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* delete button */
+.delete-btn {
+    padding: 9px 16px;
+    background: #fee2e2;
+    color: #dc2626;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    background: #fecaca;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px 12px 0 0;
+}
+
+.filters input {
+    flex: 1;
+    min-width: 0;
+}
+
+.filters input,
+.filters select {
+    height: 46px;
+    padding: 0 16px;
+    border: 1px solid #dce4ed;
+    border-radius: 10px;
+    background-color: white;
+    color: #193B56;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.filters input:focus,
+.filters select:focus {
+    border-color: #009688;
+}
+
+.filters input::placeholder {
+    color: #94a3b8;
+}
+
+.filters select {
+    min-width: 170px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .filters input,
+    .filters select {
+        width: 100%;
+        flex: auto;
+    }
+}

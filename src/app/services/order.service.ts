@@ -14,7 +14,11 @@ export class OrderService {
 
     // get all orders
     getAllOrders(): Observable<Order[]> {
-        return this.http.get<Order[]>(this.apiUrl);
+        const token = sessionStorage.getItem('token');
+
+        return this.http.get<Order[]>(this.apiUrl, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
     }
 
     // get order by id
@@ -24,12 +28,14 @@ export class OrderService {
 
     // update order status
     updateOrderStatus(id: number, status: string) : Observable<{message:string}> {
-        return this.http.put<{message:string}>(`${this.apiUrl}/${id}`, {status: status})
+        const token = sessionStorage.getItem('token');
+        return this.http.put<{message:string}>(`${this.apiUrl}/${id}`, {status: status}, { headers: { Authorization: `Bearer ${token}`}})
     }
 
     // delete order
     deleteOrder(id: number) : Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`)
+        const token = sessionStorage.getItem('token');
+        return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: { Authorization: `Bearer ${token}`}});
     }
 
 }

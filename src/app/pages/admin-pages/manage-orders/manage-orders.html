@@ -1,0 +1,134 @@
+<div class="manage-orders">
+
+  <div class="page-header">
+    <div>
+      <h1>Manage Orders</h1>
+      <p>View and manage all delivery orders</p>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p>Loading orders...</p>
+  } @else if (errorMessage()) {
+    <p>{{ errorMessage() }}</p>
+  } @else {
+
+
+    <div class="filters">
+
+        <input type="text" placeholder="Search by Order ID" [ngModel]="searchId()" (ngModelChange)="searchId.set($event.toString()); currentPage.set(1)" >
+
+        <input type="text" placeholder="Search order, customer, phone..." [ngModel]="searchText()" (ngModelChange)="searchText.set($event); currentPage.set(1)">
+
+        <select [ngModel]="selectedStatus()" (ngModelChange)="selectedStatus.set($event); currentPage.set(1)">
+            <option value="all">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="assigned">Assigned</option>
+            <option value="picked_up">Picked Up</option>
+            <option value="in_transit">In Transit</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+        </select>
+
+        <select
+            [ngModel]="selectedGovernorate()" (ngModelChange)="selectedGovernorate.set($event); currentPage.set(1)">
+            <option value="all">All Governorates</option>
+            <option value="Cairo">Cairo</option>
+            <option value="Giza">Giza</option>
+            <option value="Alexandria">Alexandria</option>
+        </select>
+
+    </div>
+
+    <div class="orders-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Tracking Number</th>
+            <th>Customer</th>
+            <th>Route</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (order of paginatedOrders(); track order.id) {
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.tracking_number }}</td>
+
+                <td>
+                    {{ order.customer_name }}<br>
+                    {{ order.customer_phone }}
+                </td>
+
+                <td>
+                    {{ order.pickup_address }} →
+                    {{ order.dropoff_address }}
+                </td>
+
+                <td>{{ order.created_at | date:'dd MMM yyyy' }}</td>
+
+                <td>
+                    <select
+                        class="status-select"
+                        [ngModel]="order.status"
+                        (ngModelChange)="updateStatus(order, $event)"
+                        [ngClass]="order.status">
+                        <option value="pending">Pending</option>
+                        <option value="assigned">Assigned</option>
+                        <option value="picked_up">Picked Up</option>
+                        <option value="in_transit">In Transit</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </td>
+
+                <td>{{ order.total_customer_price }}</td>
+                <td>
+                    <button
+                        class="delete-btn"
+                        (click)="deleteOrder(order.id)"
+                        title="Delete order">
+                        Delete
+                    </button>
+                </td>
+              
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="8">No orders found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+
+    <div class="pagination-buttons">
+
+        <button
+            class="page-btn"
+            (click)="changePage(currentPage() - 1)"
+            [disabled]="currentPage() === 1"> 
+            Previous
+        </button>
+
+        <span class="current-page"> {{ currentPage() }} </span>
+
+        <button
+            class="page-btn"
+            (click)="changePage(currentPage() + 1)"
+            [disabled]="currentPage() >= totalPages()">
+            Next
+        </button>
+
+    </div>
+
+  }
+
+</div>

@@ -1,0 +1,35 @@
+<div class="admin-layout">
+    <aside class="sidebar">
+        <h2>Wasla</h2>
+        <nav>
+            <a routerLink="/admin/dashboard" routerLinkActive="active"> <svg lucideLayoutDashboard></svg>Dashboard</a>
+            <a routerLink="/admin/manage-orders" routerLinkActive="active"> <svg lucidePackage></svg> Manage Orders</a> 
+            <a routerLink="/admin/courier-assignments" routerLinkActive="active"> <svg lucideTruck></svg> Courier Assignments</a> 
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="logout-btn" (click)="logout()"> <svg lucideLogOut></svg>Log Out</button>
+        </div>
+    </aside>
+    <main class="main-content">
+        <!-- <header class="top-navbar">
+            <div class="navbar-right">
+                <button class="notification-btn" type="button">
+                    <svg lucideBell></svg>
+                </button>
+
+                <div class="admin-profile">
+                    <div class="avatar">A</div>
+                    <span>Admin</span>
+                    <svg lucideChevronRight></svg>
+                </div>
+            </div>
+        </header> -->
+
+        <div class="page-content">
+            <router-outlet></router-outlet>
+        </div>
+
+    </main>
+</div>
+

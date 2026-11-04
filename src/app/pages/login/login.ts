@@ -43,13 +43,17 @@ export class Login {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('Login user:', {
+          role: data.role,
+          full_name: data.full_name
+        });
 
         if (data.token) {
           sessionStorage.setItem('token', data.token);
           if (data.role === 'business') {
              await this.router.navigate(['/dashboard']);
               } else if (data.role === 'admin') {
-              await this.router.navigate(['/manage-orders']);
+              await this.router.navigate(['/admin/dashboard']);
                 } else {
                  this.message = 'Login successful!';
                    }
