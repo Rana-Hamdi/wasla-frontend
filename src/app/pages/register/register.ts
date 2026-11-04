@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 
@@ -9,7 +9,10 @@ import { RouterLink, Router } from '@angular/router';
   styleUrl: './register.css'
 })
 export class Register {
-  constructor(private router: Router) {}
+  constructor(
+  private router: Router,
+  private cdr: ChangeDetectorRef
+) {}
 
   user = {
     full_name: '',
@@ -80,5 +83,6 @@ export class Register {
     }
 
     this.loading = false;
+     this.cdr.markForCheck();
   }
 }

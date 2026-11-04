@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 
@@ -9,7 +9,10 @@ import { RouterLink, Router } from '@angular/router';
   styleUrl: './login.css'
 })
 export class Login {
-  constructor(private router: Router) {}
+  constructor(
+  private router: Router,
+  private cdr: ChangeDetectorRef
+) {}
 
   email = '';
   password = '';
@@ -63,5 +66,6 @@ export class Login {
     }
 
     this.loading = false;
+     this.cdr.markForCheck();
   }
 }

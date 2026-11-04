@@ -55,6 +55,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "wasla-frontend:build:production"
@@ -64,6 +67,7 @@
             }
           },
           "defaultConfiguration": "development"
+          
         },
         "test": {
           "builder": "@angular/build:unit-test"
