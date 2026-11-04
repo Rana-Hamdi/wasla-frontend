@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './my-orders.css'
 })
 export class MyOrders {
+  constructor(private cdr: ChangeDetectorRef) {}
 
   orders: any[] = [];
 
@@ -29,6 +30,7 @@ export class MyOrders {
     if (!token) {
       this.error = 'Please log in first.';
       this.loading = false;
+      this.cdr.markForCheck();
       return;
     }
 
@@ -52,6 +54,7 @@ export class MyOrders {
     }
 
     this.loading = false;
+    this.cdr.markForCheck();
   }
 
   filteredOrders() {

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.css'
 })
 export class Login {
+  constructor(private router: Router) {}
 
   email = '';
   password = '';
@@ -42,7 +43,13 @@ export class Login {
 
         if (data.token) {
           sessionStorage.setItem('token', data.token);
-          this.message = 'Login successful!';
+          if (data.role === 'business') {
+             await this.router.navigate(['/dashboard']);
+              } else if (data.role === 'admin') {
+              await this.router.navigate(['/manage-orders']);
+                } else {
+                 this.message = 'Login successful!';
+                   }
         } else {
           this.error = 'Login response is missing a token.';
         }
