@@ -9,7 +9,7 @@
       <a routerLink="/create-order">+ Create Shipment</a>
     </nav>
 
-    <a routerLink="/login" class="logout">Sign out</a>
+    <a routerLink="/login" (click)="logout()" class="logout">Sign out</a>
   </aside>
 
   <main class="content">
@@ -70,7 +70,7 @@
         </thead>
 
         <tbody>
-          @for (order of orders; track order.tracking_number) {
+          @for (order of recentOrders(); track order.tracking_number) {
             <tr>
               <td>{{ order.tracking_number }}</td>
               <td>{{ order.customer_name }}</td>

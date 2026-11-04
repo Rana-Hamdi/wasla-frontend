@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './create-order.css'
 })
 export class CreateOrder {
+  constructor(private cdr: ChangeDetectorRef) {}
 
   deliveryFee = 50;
 
@@ -86,5 +87,6 @@ export class CreateOrder {
     }
 
     this.loading = false;
+    this.cdr.markForCheck();
   }
 }
