@@ -6,23 +6,30 @@
 }
 
 .sidebar {
-  width: 240px;
-  background: #193c56;
-  color: white;
-  padding: 25px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+    width: 240px;
+    height: 100vh;
+    background: #193c56;
+    color: white;
+    padding: 25px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
 }
 
 .sidebar h1 {
   margin-bottom: 45px;
 }
 
-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
 }
 
 nav a, .logout {
@@ -158,4 +165,67 @@ th {
   .stats {
     grid-template-columns: 1fr;
   }
+}
+
+
+
+.sidebar nav a.active {
+    background-color: #315570;
+    color: white;
+    border-left: 4px solid #ff7900;
+}
+
+.sidebar nav a,
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar nav a svg,
+.logout svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* logo */
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 16px 12px 28px;
+    margin: -20px -16px 0;
+
+    border-bottom: 1px solid #345570;
+}
+
+.logo-icon {
+    width: 48px;
+    height: 48px;
+    background-color: #ff7900;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon svg {
+    width: 25px;
+    height: 25px;
+    color: white;
+}
+
+.sidebar-logo h2 {
+    margin: 0;
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.sidebar-logo h2 span {
+    color: #ff7900;
 }

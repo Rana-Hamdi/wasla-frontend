@@ -90,7 +90,6 @@
             <input id="order-id" [value]="formOrderId" type="number" disabled />
           }
 
-          <label for="courier-id">{{ formMode === 'assign' ? 'Courier ID' : 'New Courier ID' }}</label>
          <label for="courier">Select Courier</label>
 
           <select id="courier" name="courierId" [(ngModel)]="formCourierId" required>
@@ -102,7 +101,6 @@
             
           </select>
 
-          <p class="hint">Only IDs of users with the courier role will be accepted.</p>
           @if (formError) { <p class="form-error" role="alert">{{ formError }}</p> }
           <div class="modal-actions">
             <button type="button" class="secondary-btn" [disabled]="saving()" (click)="closeForm()">Cancel</button>

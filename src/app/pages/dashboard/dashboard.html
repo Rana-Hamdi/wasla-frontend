@@ -1,15 +1,22 @@
 <div class="dashboard">
 
   <aside class="sidebar">
-    <h1>📦 Wasla</h1>
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+          <svg lucideRoute></svg>
+      </div>
+
+      <h2>wasla<span>.</span></h2>
+    </div>
+
 
     <nav>
-      <a routerLink="/dashboard">Overview</a>
-      <a routerLink="/my-orders">My Orders</a>
-      <a routerLink="/create-order">+ Create Shipment</a>
+      <a routerLink="/dashboard" routerLinkActive="active"><svg lucideLayoutDashboard></svg>Overview</a>
+      <a routerLink="/my-orders" routerLinkActive="active"><svg lucidePackage></svg>My Orders</a>
+      <a routerLink="/create-order"><svg lucidePackagePlus></svg>+ Create Shipment</a>
     </nav>
 
-    <a routerLink="/login" (click)="logout()" class="logout">Sign out</a>
+    <a routerLink="/login" (click)="logout()" class="logout"><svg>LucideLogOut</svg>Sign out</a>
   </aside>
 
   <main class="content">

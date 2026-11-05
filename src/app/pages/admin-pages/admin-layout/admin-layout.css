@@ -105,11 +105,6 @@
     color: white;
     border-left: 4px solid #ff7900;
 }
-.sidebar nav a svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-}
 
 .sidebar-footer {
     margin-top: auto;

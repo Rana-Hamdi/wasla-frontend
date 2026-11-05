@@ -1,10 +1,12 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive} from '@angular/router';
+import { LucideRoute, LucideLayoutDashboard, LucidePackage, LucidePackagePlus} from '@lucide/angular';
+
 
 @Component({
   selector: 'app-my-orders',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, LucideRoute, RouterLinkActive, LucideLayoutDashboard, LucidePackage, LucidePackagePlus],
   templateUrl: './my-orders.html',
   styleUrl: './my-orders.css'
 })

@@ -1,9 +1,11 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive} from '@angular/router';
+import { LucideRoute, LucideLogOut, LucideLayoutDashboard, LucidePackage, LucidePackagePlus,} from '@lucide/angular';
+
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink],
+  imports: [RouterLink, LucideRoute, RouterLinkActive, LucideLogOut, LucideLayoutDashboard, LucidePackage, LucidePackagePlus],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
