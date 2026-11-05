@@ -1,1 +1,165 @@
-<p>dashboard works!</p>
+<div class="dashboard">
+
+    <!-- page header -->
+    <div class="page-header">
+        <h1>Dashboard</h1>
+        <p>Overview of Wasla delivery operations</p>
+    </div>
+
+    @if (loading()) {
+
+        <p class="loading-message">Loading dashboard...</p>
+
+    } @else if (errorMessage()) {
+
+        <p class="error-message">{{ errorMessage() }}</p>
+
+    } @else {
+
+        <!-- statistics cards -->
+        <div class="stats">
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Total Orders</h3>
+                    <p>{{ totalOrders() }}</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Pending Orders</h3>
+                    <p>{{ pendingOrders() }}</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Delivered Orders</h3>
+                    <p>{{ deliveredOrders() }}</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Active Assignments</h3>
+                    <p>{{ activeAssignments() }}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- recent orders and quick actions -->
+        <div class="dashboard-bottom">
+
+            <!-- recent orders -->
+            <div class="recent-orders">
+
+                <div class="section-header">
+                    <h2>Recent Orders</h2>
+
+                    <a routerLink="/admin/manage-orders">
+                        View All Orders →
+                    </a>
+                </div>
+
+                <div class="orders-table">
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Tracking Number</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (order of recentOrders(); track order.id) {
+
+                                <tr>
+                                    <td>#{{ order.id }}</td>
+
+                                    <td>{{ order.tracking_number }}</td>
+
+                                    <td>{{ order.customer_name }}</td>
+
+                                    <td>
+                                        <span class="status-badge" [ngClass]="order.status">
+                                            {{ order.status }}
+                                        </span>
+                                    </td>
+
+                                    <td>{{ order.total_customer_price }}</td>
+
+                                    <td>
+                                        {{ order.created_at | date:'dd MMM yyyy' }}
+                                    </td>
+                                </tr>
+
+                            } @empty {
+
+                                <tr>
+                                    <td colspan="6" class="empty">
+                                        No orders available
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- quick actions -->
+            <div class="quick-actions">
+
+                <h2>Quick Actions</h2>
+                <p class="quick-subtitle">Common admin tasks</p>
+
+                <div class="action-list">
+
+                    <a routerLink="/admin/manage-orders" class="action-item">
+
+                        <div class="action-icon">
+                            📦
+                        </div>
+
+                        <div class="action-info">
+                            <h3>Manage Orders</h3>
+                            <p>View and update orders</p>
+                        </div>
+
+                        <span class="action-arrow">›</span>
+
+                    </a>
+
+                    <a routerLink="/admin/courier-assignments" class="action-item">
+
+                        <div class="action-icon">
+                            🚚
+                        </div>
+
+                        <div class="action-info">
+                            <h3>Courier Assignments</h3>
+                            <p>Assign orders to couriers</p>
+                        </div>
+
+                        <span class="action-arrow">›</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    }
+
+</div>

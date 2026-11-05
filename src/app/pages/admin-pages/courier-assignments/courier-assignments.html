@@ -22,9 +22,11 @@
 
   <section class="panel">
     <div class="toolbar">
-      <input type="search" aria-label="Search assignments" placeholder="Search assignment, order, tracking or courier ID..."
-        [ngModel]="search()" (ngModelChange)="search.set($event)" />
-      <select aria-label="Filter assignment status" [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event)">
+      
+      <input type="text" placeholder="Search by Order ID" [ngModel]="searchOrderId()" (ngModelChange)="searchOrderId.set($event)">
+      <input type="text" placeholder="Search by Courier ID" [ngModel]="searchCourierId()" (ngModelChange)="searchCourierId.set($event)">
+    
+    <select aria-label="Filter assignment status" [ngModel]="statusFilter()" (ngModelChange)="statusFilter.set($event)">
         <option value="all">All statuses</option>
         <option value="pending">Pending</option>
         <option value="accepted">Accepted</option>
@@ -89,8 +91,17 @@
           }
 
           <label for="courier-id">{{ formMode === 'assign' ? 'Courier ID' : 'New Courier ID' }}</label>
-          <input id="courier-id" name="courierId" type="number" min="1" step="1" required
-            [(ngModel)]="formCourierId" placeholder="Enter courier user ID" />
+         <label for="courier">Select Courier</label>
+
+          <select id="courier" name="courierId" [(ngModel)]="formCourierId" required>
+            <option [ngValue]="null">Select a courier</option>
+
+            @for (courier of couriers(); track courier.id) {
+              <option [ngValue]="courier.id"> {{ courier.full_name }} (ID: {{ courier.id }}) </option>
+            }
+            
+          </select>
+
           <p class="hint">Only IDs of users with the courier role will be accepted.</p>
           @if (formError) { <p class="form-error" role="alert">{{ formError }}</p> }
           <div class="modal-actions">

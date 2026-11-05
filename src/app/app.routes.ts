@@ -22,9 +22,9 @@ export const routes: Routes = [
     path: 'admin',
     component: AdminLayout,
     children: [
-      { path: 'dashboard', component: AdminDashboard },
-      { path: 'manage-orders', component: ManageOrders },
-      { path: 'courier-assignments', component: CourierAssignments }
+      { path: 'dashboard', component: AdminDashboard,  canActivate: [authGuard]},
+      { path: 'manage-orders', component: ManageOrders,  canActivate: [authGuard]},
+      { path: 'courier-assignments', component: CourierAssignments,  canActivate: [authGuard] }
     ]
   }
 ];

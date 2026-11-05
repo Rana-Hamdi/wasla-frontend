@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourierAssignment } from '../models/assignment.model';
+import { Courier } from '../models/courier.model';
 
 @Injectable({ providedIn: 'root' })
 export class AssignmentService {
@@ -18,6 +19,10 @@ export class AssignmentService {
     return this.http.get<CourierAssignment[] | null>(this.apiUrl, {
       headers: this.authHeaders()
     });
+  }
+
+  getCouriers(): Observable<Courier[]> {
+    return this.http.get<Courier[]>('http://localhost:8080/api/couriers', { headers: this.authHeaders()});
   }
 
   assign(orderId: number, courierId: number, adminId: number): Observable<void> {

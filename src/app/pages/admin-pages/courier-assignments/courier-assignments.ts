@@ -6,6 +6,7 @@ import { AssignmentService } from '../../../services/assignment.service';
 import { OrderService } from '../../../services/order.service';
 import { CourierAssignment } from '../../../models/assignment.model';
 import { Order } from '../../../models/order.model';
+import { Courier } from '../../../models/courier.model';
 
 @Component({
   selector: 'app-courier-assignments',
@@ -16,12 +17,16 @@ import { Order } from '../../../models/order.model';
 export class CourierAssignments implements OnInit {
   assignments = signal<CourierAssignment[]>([]);
   orders = signal<Order[]>([]);
+  couriers = signal<Courier[]>([]);
   loading = signal(true);
   saving = signal(false);
   errorMessage = signal('');
   successMessage = signal('');
   search = signal('');
+
   statusFilter = signal('all');
+  searchOrderId = signal('');
+  searchCourierId = signal('');
 
   showForm = false;
   formMode: 'assign' | 'reassign' = 'assign';
@@ -29,16 +34,18 @@ export class CourierAssignments implements OnInit {
   formCourierId: number | null = null;
   formError = '';
 
-  filteredAssignments = computed(() => {
-    const q = this.search().trim().toLowerCase();
-    return this.assignments().filter(a => {
-      const matchesStatus = this.statusFilter() === 'all' || a.status === this.statusFilter();
-      const matchesSearch = !q || String(a.id).includes(q) ||
-        String(a.order_id).includes(q) || String(a.courier_id).includes(q) ||
-        (this.orderFor(a.order_id)?.tracking_number ?? '').toLowerCase().includes(q);
-      return matchesStatus && matchesSearch;
-    });
+filteredAssignments = computed(() => {
+  return this.assignments().filter(assignment => {
+
+    const matchesOrderId = this.searchOrderId().trim() === '' || assignment.order_id.toString() === this.searchOrderId().trim();
+
+    const matchesCourierId = this.searchCourierId().trim() === '' || assignment.courier_id.toString() === this.searchCourierId().trim();
+
+    const matchesStatus = this.statusFilter() === 'all' || assignment.status === this.statusFilter();
+
+    return matchesOrderId && matchesCourierId && matchesStatus;
   });
+});
 
   activeAssignments = computed(() => this.assignments().filter(a => a.status === 'pending' || a.status === 'accepted'));
   pendingOrders = computed(() => this.orders().filter(o => o.status === 'pending'));
@@ -57,16 +64,22 @@ export class CourierAssignments implements OnInit {
     this.errorMessage.set('');
     forkJoin({
       assignments: this.assignmentService.getAll(),
-      orders: this.orderService.getAllOrders()
+      orders: this.orderService.getAllOrders(),
+      couriers: this.assignmentService.getCouriers()
     }).subscribe({
-      next: ({ assignments, orders }) => {
-        this.assignments.set((assignments ?? []).slice().sort((a, b) => b.id - a.id));
+      next: ({ assignments, orders, couriers }) => {
+        this.assignments.set(
+          (assignments ?? []).slice().sort((a, b) => b.id - a.id)
+        );
+
         this.orders.set(orders ?? []);
+        this.couriers.set(couriers ?? []);
+
         this.loading.set(false);
       },
       error: (err) => {
         console.error('Failed to load courier assignments:', err);
-        this.errorMessage.set('Could not load assignments. Check your login and backend connection.');
+        this.errorMessage.set('Could not load assignments.');
         this.loading.set(false);
       }
     });

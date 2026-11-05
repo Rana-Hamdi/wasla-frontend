@@ -1,6 +1,14 @@
 <div class="admin-layout">
     <aside class="sidebar">
-        <h2>Wasla</h2>
+
+        <div class="sidebar-logo">
+            <div class="logo-icon">
+                <svg lucideRoute></svg>
+            </div>
+
+            <h2>wasla<span>.</span></h2>
+        </div>
+
         <nav>
             <a routerLink="/admin/dashboard" routerLinkActive="active"> <svg lucideLayoutDashboard></svg>Dashboard</a>
             <a routerLink="/admin/manage-orders" routerLinkActive="active"> <svg lucidePackage></svg> Manage Orders</a> 
@@ -11,25 +19,25 @@
             <button class="logout-btn" (click)="logout()"> <svg lucideLogOut></svg>Log Out</button>
         </div>
     </aside>
-    <main class="main-content">
-        <!-- <header class="top-navbar">
-            <div class="navbar-right">
-                <button class="notification-btn" type="button">
-                    <svg lucideBell></svg>
-                </button>
 
-                <div class="admin-profile">
-                    <div class="avatar">A</div>
-                    <span>Admin</span>
-                    <svg lucideChevronRight></svg>
+    <div class="main-content">
+        <header class="top-navbar">
+            <div class="navbar-title">
+                <svg lucideShieldCheck></svg>
+                <div>
+                    <h3>Administration Panel</h3>
+                    <span>Wasla Delivery Management</span>
                 </div>
             </div>
-        </header> -->
+            <div class="navbar-right"><span class="admin-badge">ADMIN</span></div>
+        </header>
 
-        <div class="page-content">
-            <router-outlet></router-outlet>
-        </div>
-
-    </main>
+        <main class="main-content">
+            <div class="page-content">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+    </div>
+    
 </div>
 

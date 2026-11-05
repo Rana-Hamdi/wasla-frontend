@@ -124,7 +124,7 @@ button {
 
 .toolbar input {
     flex: 1;
-    min-width: 225px;
+    min-width: 180px;
 }
 
 .toolbar input,
