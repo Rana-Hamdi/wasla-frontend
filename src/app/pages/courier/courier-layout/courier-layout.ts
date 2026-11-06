@@ -41,14 +41,14 @@ import {
   styleUrl: './courier-layout.css'
 })
 export class CourierLayout implements OnInit {
-  // Replace this with your actual Auth Service logic
+ 
   userName: string = 'Ahmed Mostafa'; 
   userInitials: string = 'AM';
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Example: Grab from session storage or an AuthService
+    
     const storedName = sessionStorage.getItem('userName');
     if (storedName) {
       this.userName = storedName;

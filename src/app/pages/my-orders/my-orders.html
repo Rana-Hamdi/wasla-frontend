@@ -71,7 +71,7 @@
           <tbody>
             @for (order of filteredOrders(); track order.id) {
               <tr>
-                <!-- Make only the tracking number clickable -->
+                
                 <td>
                   <span class="clickable-tracking" (click)="goToOrderDetails(order.id)">
                     {{ order.tracking_number }}

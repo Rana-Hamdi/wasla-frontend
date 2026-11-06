@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* 1. Reset the layout to touch the edges */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -18,7 +18,7 @@ html, body {
   padding: 0;
 }
 
-/* --- Sidebar --- */
+/* Sidebar  */
 .sidebar {
   width: 260px;
   height: 100vh;
@@ -27,7 +27,7 @@ html, body {
   padding: 24px 16px;
   box-sizing: border-box;
   
-  /* 2. Fix the sidebar to the left */
+ 
   position: fixed;
   top: 0;
   left: 0;
@@ -230,14 +230,14 @@ html, body {
   letter-spacing: 1px;
 }
 
-/* --- Main Content Area --- */
+/*  Main Content Area  */
 .main-content {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
   
-  /* 3. Push the main content to the right by the width of the fixed sidebar */
+ 
   margin-left: 260px; 
   background-color: #f8fafc;
 }

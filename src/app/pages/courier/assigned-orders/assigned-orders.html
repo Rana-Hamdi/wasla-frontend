@@ -13,7 +13,7 @@
     <div class="empty-state">No assigned orders found.</div>
   } @else {
     <div class="orders-list">
-      <!-- Note: tracking by assignment_id if order_id might duplicate -->
+     
       @for (order of orders; track order.assignment_id || order.order_id) {
         <div class="order-card">
           <div class="card-header">
@@ -21,7 +21,7 @@
               <span class="assignment-label">ASSIGNMENT #{{ order.assignment_id }}</span>
               <span class="order-number">{{ order.tracking_number || 'N/A' }}</span>
             </div>
-            <!-- The status badge now checks order_status first, falling back to assignment_status -->
+            
             <span class="status-badge" 
                   [class.accepted]="(order.order_status === 'accepted' || order.order_status === 'delivered' || order.assignment_status === 'accepted')" 
                   [class.pending]="order.assignment_status === 'pending'">
@@ -43,12 +43,12 @@
                 </div>
               </div>
 
-              <!-- Dotted Line (Fixed layout) -->
+              
               <div class="route-step line-container">
                 <div class="route-connector"></div>
               </div>
 
-              <!-- Drop-off -->
+              
               <div class="route-step">
                 <div class="step-icon dropoff">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>
@@ -98,7 +98,7 @@
           </div>
 
           <div class="card-footer">
-            <!-- Check order_status for delivered, otherwise fallback to assignment_status -->
+            
             @if (order.order_status === 'delivered') {
               <button class="btn btn-outline success" disabled>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="icon-sm"><polyline points="20 6 9 17 4 12"></polyline></svg>

@@ -20,8 +20,6 @@ export interface Order {
   status: string;
   created_at: string;
   updated_at: string;
-
-  // NEW: Courier fields (optional because they might be null in DB)
   courier_name?: string;
   courier_phone?: string;
   courier_rating?: number;

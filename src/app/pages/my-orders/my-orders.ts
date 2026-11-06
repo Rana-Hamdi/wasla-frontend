@@ -12,7 +12,6 @@ import { DatePipe } from '@angular/common';
 })
 export class MyOrders {
   
-  // <-- Inject Router here -->
   constructor(private cdr: ChangeDetectorRef, private router: Router) {}
 
   orders: any[] = [];
@@ -68,7 +67,7 @@ export class MyOrders {
   sessionStorage.removeItem('role');
 }
 
-  // <-- Add the navigation method here -->
+ 
   goToOrderDetails(orderId: number): void {
     this.router.navigate(['/order-details', orderId]);
   }

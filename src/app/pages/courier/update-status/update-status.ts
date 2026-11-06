@@ -29,7 +29,7 @@ export class UpdateStatusComponent implements OnInit {
 
   orderId: number | null = null;
 
-  // Drives the radio options in the HTML
+  
   statusOptions = [
     { value: 'picked_up', label: 'Picked Up', description: 'Package collected from sender' },
     { value: 'in_transit', label: 'In Transit', description: 'Package is on the way to customer' },
@@ -76,20 +76,20 @@ export class UpdateStatusComponent implements OnInit {
         } else {
           this.order = foundOrder;
           
-          // --- PRE-SELECT CURRENT STATUS ---
+        
           const dbStatus = foundOrder.order_status || foundOrder.status;
           
           if (dbStatus) {
-            // Format database string (e.g., "In Transit") to match option value ("in_transit")
+            
             const normalizedStatus = dbStatus.toLowerCase().replace(/ /g, '_');
             
-            // Only select if it's a valid option in our UI
+        
             const isValidOption = this.statusOptions.some(opt => opt.value === normalizedStatus);
             if (isValidOption) {
               this.selectedStatus = normalizedStatus;
             }
           }
-          // ---------------------------------
+         
 
           if (foundOrder.assignment_status !== 'accepted') {
             this.errorMessage = 'You must accept this assignment before updating its shipment status.';
@@ -135,7 +135,7 @@ export class UpdateStatusComponent implements OnInit {
       return;
     }
 
-    // 1. Reset states before making the request
+   
     this.submitting = true;
     this.errorMessage = '';
     this.successMessage = '';
@@ -149,12 +149,12 @@ export class UpdateStatusComponent implements OnInit {
     this.http.patch(`${this.apiUrl}/${this.orderId}/status`, body, { headers })
       .subscribe({
         next: () => {
-          // 2. Success state
+     
           this.successMessage = 'Shipment status updated successfully.';
           this.submitting = false;
           this.cdr.markForCheck();
           
-          // Auto-hide success message after 3 seconds
+         
           setTimeout(() => {
             this.successMessage = '';
             this.cdr.markForCheck();
@@ -166,7 +166,7 @@ export class UpdateStatusComponent implements OnInit {
         error: (error) => {
           console.error('Backend Error Details:', error);
 
-          // 3. Robust Error Extraction
+          
           let msg = 'Failed to update shipment status.';
           
           if (error.error instanceof ErrorEvent) {
@@ -186,11 +186,11 @@ export class UpdateStatusComponent implements OnInit {
             msg = 'Invalid order status transition. You cannot skip delivery steps.';
           }
 
-          // 4. Set error and force Angular to display it
+          
           this.errorMessage = msg;
           this.submitting = false;
           
-          // This is critical to show the error on screen immediately
+          
           this.cdr.markForCheck();
         }
       });

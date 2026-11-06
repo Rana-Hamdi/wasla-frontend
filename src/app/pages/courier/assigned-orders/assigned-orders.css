@@ -1,4 +1,4 @@
-/* --- Page Layout & Header --- */
+/*  Page Layout & Header  */
 .page-content {
   width: 100%;
   padding: 32px; 
@@ -6,7 +6,7 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #0f172a;
   background-color: #f8fafc;
-  min-height: 100%; /* Changed from 100vh to prevent scrollbar issues */
+  min-height: 100%; 
 }
 
 .page-header {
@@ -230,7 +230,7 @@
   color: #0f172a;
 }
 
-/* --- Buttons --- */
+/*  Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -320,7 +320,7 @@
   border-color: #fca5a5;
 }
 
-/* Update this specific block in your CSS */
+
 .route-step.line-container {
   height: 30px; /* Adjust height to match the gap between cards */
   margin-top: -10px;
