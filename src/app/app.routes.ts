@@ -5,6 +5,7 @@ import { Login } from './pages/login/login';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { CreateOrder } from './pages/create-order/create-order';
 import { MyOrders } from './pages/my-orders/my-orders';
+import { OrderDetails } from './pages/order-details/order-details';
 
 import { authGuard } from './guards/auth.guard';
 
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
   { path: 'create-order', component: CreateOrder, canActivate: [authGuard] },
   { path: 'my-orders', component: MyOrders, canActivate: [authGuard] },
+  { path: 'order-details/:id', component: OrderDetails, canActivate: [authGuard] },
 
   {
     path: 'admin',

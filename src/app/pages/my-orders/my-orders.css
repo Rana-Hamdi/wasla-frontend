@@ -18,6 +18,18 @@
 .sidebar h1 {
   margin-bottom: 40px;
 }
+.clickable-tracking {
+  color: #0d9488; /* Teal color matching your theme */
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.clickable-tracking:hover {
+  color: #0f766e; /* Darker teal on hover */
+  text-decoration: none;
+}
 
 .sidebar nav {
     display: flex;

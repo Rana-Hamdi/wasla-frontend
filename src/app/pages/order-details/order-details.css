@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* --- Main Layout Wrapper --- */
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* --- Sidebar (Your CSS) --- */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #193c56;
+    color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background-color: #ff7900;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon svg { width: 20px; height: 20px; color: white; }
+.sidebar-logo h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+.sidebar-logo h2 span { color: #ff7900; }
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+nav a, .logout {
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+nav a:hover, .logout:hover { background: #31566f; color: white; }
+nav a.active { background: #31566f; color: white; }
+nav a svg, .logout svg { width: 20px; height: 20px; }
+.logout { margin-top: auto; }
+
+/* --- Content Area --- */
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 30px;
+  background-color: #f8fafc;
+}
+
+.page-content { max-width: 1200px; margin: 0 auto; }
+
+/* --- Header Section --- */
+.header-section { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 8px; background: none; border: none;
+  color: #64748b; font-size: 14px; font-weight: 500; cursor: pointer; padding: 0; margin-bottom: 16px; font-family: inherit;
+}
+.back-btn svg { width: 16px; height: 16px; }
+.back-btn:hover { color: #0f172a; }
+.header-left h1 { font-size: 28px; font-weight: 700; margin: 0 0 8px 0; color: #0f172a; letter-spacing: -0.5px; }
+.subtitle { color: #64748b; font-size: 14px; margin: 0; }
+.header-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+
+/* Status Badge */
+.status-badge {
+  display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; text-transform: capitalize; background-color: #ffedd5; color: #ea580c;
+}
+.status-badge .dot { width: 6px; height: 6px; border-radius: 50%; background-color: currentColor; }
+.status-badge.delivered { background-color: #dcfce7; color: #16a34a; }
+.status-badge.cancelled { background-color: #fee2e2; color: #dc2626; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 16px;
+  border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+  font-family: inherit; border: 1px solid #e2e8f0; background-color: white; color: #0f172a;
+}
+.btn:hover:not(:disabled) { background-color: #f8fafc; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.icon-sm { width: 16px; height: 16px; }
+
+/* --- Grid Layout --- */
+.details-grid { display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
+.left-column, .right-column { display: flex; flex-direction: column; gap: 24px; }
+
+/* --- Cards --- */
+.card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); }
+.card-header { margin-bottom: 24px; }
+.card-header h2 { font-size: 18px; font-weight: 600; margin: 0 0 4px 0; color: #0f172a; }
+.card-subtitle { color: #64748b; font-size: 13px; margin: 0; }
+
+/* --- Shipment Progress Timeline --- */
+.timeline-container { display: flex; align-items: flex-start; justify-content: space-between; position: relative; padding-top: 10px; }
+.timeline-step { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; flex: 1; }
+.step-icon-wrapper { display: flex; align-items: center; width: 100%; justify-content: center; position: relative; }
+.step-icon {
+  width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background-color: white; border: 2px solid #cbd5e1; color: #94a3b8; z-index: 2;
+}
+.step-icon svg { width: 16px; height: 16px; }
+.step-line { position: absolute; top: 16px; left: 50%; width: 100%; height: 2px; background-color: #cbd5e1; z-index: 0; }
+.timeline-step.completed .step-icon { background-color: #0d9488; border-color: #0d9488; color: white; }
+.timeline-step.completed .step-line { background-color: #0d9488; }
+.timeline-step.active .step-icon { border-color: #0d9488; color: #0d9488; }
+.step-text { text-align: center; margin-top: 12px; display: flex; flex-direction: column; gap: 2px; }
+.step-title { font-size: 13px; font-weight: 600; color: #0f172a; }
+.step-time { font-size: 11px; color: #64748b; }
+
+/* --- Shipment Information Grid --- */
+.info-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+.info-item { padding: 16px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
+.info-item:nth-child(3n) { border-right: none; }
+.info-item:nth-last-child(-n+3) { border-bottom: none; }
+.info-label { font-size: 12px; color: #64748b; }
+.info-value { font-size: 14px; font-weight: 600; color: #0f172a; }
+
+/* --- Delivery Route --- */
+.route-details { display: flex; flex-direction: column; }
+.route-step { display: flex; gap: 16px; }
+.route-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: white; flex-shrink: 0; z-index: 1; }
+.route-icon svg { width: 12px; height: 12px; }
+.route-icon.pickup { border: 2px solid #0d9488; color: #0d9488; }
+.route-icon.dropoff { border: 2px solid #f97316; color: #f97316; }
+.route-connector { width: 2px; height: 40px; border-left: 2px dashed #cbd5e1; margin-left: 11px; margin-top: -4px; margin-bottom: -4px; }
+.route-info { display: flex; flex-direction: column; gap: 2px; padding-bottom: 24px; }
+.route-label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+.route-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+.route-address { font-size: 13px; color: #64748b; }
+
+/* Utility */
+.courier-info { display: flex; align-items: center; gap: 16px; padding: 8px 0; }
+.loading-state, .error-banner { padding: 40px; text-align: center; background: white; border-radius: 12px; border: 1px solid #e2e8f0; color: #64748b; }
+.error-banner { color: #ef4444; background-color: #fef2f2; border-color: #fca5a5; }
+
+.cancel-order-btn{
+    background-color: white;
+    color: ef4444;
+    border: 1px solid #ef4444;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-order-btn:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+@media (max-width: 992px) {
+  .details-grid { grid-template-columns: 1fr; }
+  .header-section { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .header-actions { margin-top: 0; }
+}
+
+@media (max-width: 600px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .info-item { border-right: none; }
+  .timeline-container { flex-direction: column; gap: 24px; align-items: flex-start; }
+  .step-icon-wrapper { justify-content: flex-start; }
+  .step-line { display: none; }
+  .step-text { text-align: left; margin-top: 4px; }
+  .timeline-step { flex-direction: row; gap: 16px; }
+}

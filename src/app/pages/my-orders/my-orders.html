@@ -1,14 +1,11 @@
 <div class="page">
-
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="logo-icon">
           <svg lucideRoute></svg>
       </div>
-
       <h2>wasla<span>.</span></h2>
     </div>
-
 
     <nav>
       <a routerLink="/dashboard" routerLinkActive="active"><svg lucideLayoutDashboard></svg>Overview</a>
@@ -20,20 +17,17 @@
   </aside>
 
   <main class="content">
-
     <div class="header">
       <div>
         <h1>My Orders</h1>
         <p>View and track your shipments.</p>
       </div>
-
       <a routerLink="/create-order" class="create-btn">
         + Create Shipment
       </a>
     </div>
 
     <div class="filters">
-
       <div class="search-box">
         <span class="icon">🔍</span>
         <input
@@ -55,17 +49,14 @@
           <option value="cancelled">Cancelled</option>
         </select>
       </div>
-
     </div>
 
     <div class="orders-card">
-
       @if (loading) {
         <p>Loading orders...</p>
       } @else if (error) {
         <p class="error">{{ error }}</p>
       } @else {
-
         <table>
           <thead>
             <tr>
@@ -80,7 +71,12 @@
           <tbody>
             @for (order of filteredOrders(); track order.id) {
               <tr>
-                <td>{{ order.tracking_number }}</td>
+                <!-- Make only the tracking number clickable -->
+                <td>
+                  <span class="clickable-tracking" (click)="goToOrderDetails(order.id)">
+                    {{ order.tracking_number }}
+                  </span>
+                </td>
                 <td>{{ order.customer_name }}</td>
                 <td>{{ order.dropoff_address }}</td>
                 <td>{{ order.cod_amount }} EGP</td>
@@ -95,11 +91,7 @@
             }
           </tbody>
         </table>
-
       }
-
     </div>
-
   </main>
-
 </div>

@@ -23,7 +23,10 @@ export class OrderService {
 
     // get order by id
     getOrderById(id: number) : Observable<Order> {
-        return this.http.get<Order>(`${this.apiUrl}/${id}`)
+        const token = sessionStorage.getItem('token');
+        return this.http.get<Order>(`${this.apiUrl}/${id}`, {
+            headers: {Authorization: `Bearer ${token}`}
+        });
     }
 
     // update order status

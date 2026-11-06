@@ -1,0 +1,226 @@
+<div class="page-wrapper">
+  
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+          <svg lucideRoute></svg>
+      </div>
+      <h2>wasla<span>.</span></h2>
+    </div>
+
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active"><svg lucideLayoutDashboard></svg>Overview</a>
+      <a routerLink="/my-orders" routerLinkActive="active"><svg lucidePackage></svg>My Orders</a>
+      <a routerLink="/create-order"><svg lucidePackagePlus></svg>+ Create Shipment</a>
+    </nav>
+
+    <a routerLink="/login" (click)="logout()" class="logout"><svg lucideLogOut></svg>Sign out</a>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <div class="page-content">
+      @if (loading) {
+        <div class="loading-state">Loading order details...</div>
+      } @else if (errorMessage) {
+        <div class="error-banner">{{ errorMessage }}</div>
+      } @else if (order) {
+        
+        <!-- Header Section -->
+        <div class="header-section">
+          <div class="header-left">
+            <button class="back-btn" (click)="goBack()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Back to orders
+            </button>
+            <h1>Order {{ order.tracking_number }}</h1>
+            <p class="subtitle">Created on {{ order.created_at | date:'MMMM d, y' }} at {{ order.created_at | date:'h:mm a' }}</p>
+          </div>
+          
+          <div class="header-actions">
+            <span class="status-badge" [ngClass]="order.status.toLowerCase()">
+              <span class="dot"></span>
+              {{ order.status | titlecase }}
+            </span>
+            
+          </div>
+        </div>
+
+        <!-- Main Grid Layout -->
+        <div class="details-grid">
+          
+          <!-- Left Column -->
+          <div class="left-column">
+            
+            <!-- Shipment Progress Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Shipment progress</h2>
+                <p class="card-subtitle" *ngIf="order.preferred_delivery_at">
+                  Estimated delivery: {{ order.preferred_delivery_at | date:'MMM d, h:mm a' }}
+                </p>
+              </div>
+              
+              <div class="timeline-container">
+                @for (step of steps; track step.key; let isLast = $last) {
+                  <div class="timeline-step" [ngClass]="getStepState(step.key)">
+                    <div class="step-icon-wrapper">
+                      <div class="step-icon">
+                        @if (getStepState(step.key) === 'completed') {
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        } @else if (step.key === 'in_transit') {
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                        } @else {
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        }
+                      </div>
+                      @if (!isLast) {
+                        <div class="step-line"></div>
+                      }
+                    </div>
+                    <div class="step-text">
+                      <span class="step-title">{{ step.label }}</span>
+                      @if (step.key === 'pending') {
+                        <span class="step-time">{{ order.created_at | date:'MMM d, h:mm a' }}</span>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <!-- Shipment Information Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Shipment information</h2>
+                <p class="card-subtitle">Package and payment details</p>
+              </div>
+              
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Package</span>
+                  <span class="info-value">{{ order.package_description || 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Weight</span>
+                  <span class="info-value">{{ order.package_weight_kg ? order.package_weight_kg + ' kg' : 'N/A' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Payment</span>
+                  <span class="info-value">{{ order.payment_type === 'cod' ? 'Cash on delivery' : (order.payment_type | titlecase) }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Item Price</span>
+                  <span class="info-value">EGP {{ order.item_price }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Delivery fee</span>
+                  <span class="info-value">EGP {{ order.delivery_fee }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">COD amount</span>
+                  <span class="info-value">EGP {{ order.cod_amount }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Total Price</span>
+                  <span class="info-value">EGP {{ order.total_customer_price }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Fee Payer</span>
+                  <span class="info-value">{{ order.delivery_fee_payer | titlecase }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Reference</span>
+                  <span class="info-value">{{ getReferenceNumber() }}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column -->
+          <div class="right-column">
+            
+            <!-- Delivery Route Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Delivery route</h2>
+              </div>
+              
+              <div class="route-details">
+                <div class="route-step">
+                  <div class="route-icon pickup">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>
+                  </div>
+                  <div class="route-info">
+                    <span class="route-label">PICKUP</span>
+                    <span class="route-address">{{ order.pickup_address }}</span>
+                  </div>
+                </div>
+                
+                <div class="route-connector"></div>
+                
+                <div class="route-step">
+                  <div class="route-icon dropoff">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3" fill="currentColor"></circle></svg>
+                  </div>
+                  <div class="route-info">
+                    <span class="route-label">DROP-OFF</span>
+                    <span class="route-address">{{ order.dropoff_address }}</span>
+                    <span class="route-address" style="margin-top: 4px;">📞 {{ order.customer_phone }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Courier Card -->
+            <div class="card">
+              <div class="card-header">
+                <h2>Courier</h2>
+              </div>
+              
+              @if (order.courier_name) {
+                <div class="courier-info">
+                  <div class="courier-avatar">
+                    {{ order.courier_name.substring(0, 2).toUpperCase() }}
+                  </div>
+                  <div class="courier-details">
+                    <span class="courier-name">{{ order.courier_name }}</span>
+                    <span class="courier-meta">
+                      {{ order.courier_rating || 5.0 }} rating · {{ order.courier_deliveries || 0 }} deliveries
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="courier-actions" *ngIf="order.courier_phone">
+                  <button class="btn btn-outline" (click)="callCustomer(order.courier_phone)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    Call
+                  </button>
+                  <button class="btn btn-outline">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    Message
+                  </button>
+                </div>
+              } @else {
+                <div class="courier-info">
+                  <div class="courier-details">
+                    <span class="courier-name">Awaiting Assignment</span> <br>
+                    <span class="courier-meta">A courier will be assigned soon.</span>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Cancel Order Button -->
+            <button class="cancel-order-btn" (click)="cancelOrder()" [disabled]="isUpdating || order.status === 'cancelled' || order.status === 'delivered'">
+              Cancel order
+            </button>
+
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>
