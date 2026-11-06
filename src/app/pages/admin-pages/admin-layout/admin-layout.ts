@@ -15,6 +15,7 @@ export class AdminLayout {
   // remove token 
   logout() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('role');
     this.router.navigate(['/login']);
   }
 

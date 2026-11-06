@@ -74,24 +74,22 @@ export class OrderDetails implements OnInit {
   }
 
   cancelOrder(): void {
-    if (!this.order) return;
-    
-    if (!window.confirm('Are you sure you want to cancel this order?')) {
-      return;
-    }
+  if (!this.order || this.order.status !== 'pending' || this.isUpdating) return;
 
-    this.isUpdating = true;
-    this.orderService.updateOrderStatus(this.order.id, 'cancelled').subscribe({
-      next: () => {
-        this.isUpdating = false;
-        this.loadOrder(this.order!.id);
-      },
-      error: (err: any) => {
-        this.isUpdating = false;
-        alert('Failed to cancel order.');
-      }
-    });
-  }
+  const id = this.order.id;
+  this.isUpdating = true;
+
+  this.orderService.cancelOrder(id).subscribe({
+    next: () => {
+      this.isUpdating = false;
+      this.loadOrder(id);
+    },
+    error: () => {
+      this.isUpdating = false;
+      alert('Failed to cancel order.');
+    }
+  });
+}
 
   getStepState(stepKey: string): 'completed' | 'active' | 'pending' {
     if (!this.order) return 'pending';
@@ -124,6 +122,7 @@ export class OrderDetails implements OnInit {
 
   logout() {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('role');
     this.router.navigate(['/login']);
   }
 }

@@ -67,6 +67,7 @@ export class Register {
 
     if (data.token) {
       sessionStorage.setItem('token', data.token);
+      sessionStorage.setItem('role', data.role);
       await this.router.navigate(['/dashboard']);
     } else {
       this.message = 'Account created! Please log in.';

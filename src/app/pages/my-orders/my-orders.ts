@@ -63,6 +63,10 @@ export class MyOrders {
       return matchesSearch && matchesStatus;
     });
   }
+  logout() {
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('role');
+}
 
   // <-- Add the navigation method here -->
   goToOrderDetails(orderId: number): void {

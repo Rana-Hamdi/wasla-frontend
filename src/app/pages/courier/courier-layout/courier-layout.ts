@@ -58,6 +58,8 @@ export class CourierLayout implements OnInit {
 
   logout() {
     sessionStorage.removeItem('token');
+     sessionStorage.removeItem('role');
+     sessionStorage.removeItem('userName');
     this.router.navigate(['/login']);
   }
 }

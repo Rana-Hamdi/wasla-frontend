@@ -6,7 +6,7 @@ import { Courier } from '../models/courier.model';
 
 @Injectable({ providedIn: 'root' })
 export class AssignmentService {
-  private readonly apiUrl = 'http://localhost:8080/api/assignments';
+  private readonly apiUrl = '/api/assignments';
 
   constructor(private http: HttpClient) {}
 

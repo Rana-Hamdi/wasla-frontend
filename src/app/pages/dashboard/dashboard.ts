@@ -55,6 +55,7 @@ export class Dashboard {
   }
    logout() {
     sessionStorage.removeItem('token');
+     sessionStorage.removeItem('role');
   }
 }
   

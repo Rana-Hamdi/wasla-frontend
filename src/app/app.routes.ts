@@ -24,15 +24,16 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
-  { path: 'create-order', component: CreateOrder, canActivate: [authGuard] },
-  { path: 'my-orders', component: MyOrders, canActivate: [authGuard] },
-  { path: 'order-details/:id', component: OrderDetails, canActivate: [authGuard] },
+ { path: 'dashboard', component: Dashboard, canActivate: [authGuard], data: { role: 'business' } },
+{ path: 'create-order', component: CreateOrder, canActivate: [authGuard], data: { role: 'business' } },
+{ path: 'my-orders', component: MyOrders, canActivate: [authGuard], data: { role: 'business' } },
+{ path: 'order-details/:id', component: OrderDetails, canActivate: [authGuard], data: { role: 'business' } },
 
   {
     path: 'admin',
     component: AdminLayout,
     canActivate: [authGuard],
+    data: { role: 'admin' },
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: AdminDashboard },
@@ -45,6 +46,7 @@ export const routes: Routes = [
     path: 'courier',
     component: CourierLayout,
     canActivate: [authGuard],
+    data: { role: 'courier' },
     children: [
       { path: '', redirectTo: 'assigned-orders', pathMatch: 'full' },
       { path: 'assigned-orders', component: AssignedOrdersComponent },

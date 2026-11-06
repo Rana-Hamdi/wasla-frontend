@@ -8,7 +8,7 @@ import { Order } from "../models/order.model";
 })
 
 export class OrderService {
-    private apiUrl = 'http://localhost:8080/api/orders';
+    private apiUrl = '/api/orders';
 
     constructor(private http: HttpClient) {}
 
@@ -22,12 +22,24 @@ export class OrderService {
     }
 
     // get order by id
-    getOrderById(id: number) : Observable<Order> {
-        const token = sessionStorage.getItem('token');
-        return this.http.get<Order>(`${this.apiUrl}/${id}`, {
-            headers: {Authorization: `Bearer ${token}`}
-        });
+    getOrderById(id: number): Observable<Order> {
+  const token = sessionStorage.getItem('token');
+
+  return this.http.get<Order>(`${this.apiUrl}/${id}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+}
+cancelOrder(id: number): Observable<{ message: string }> {
+  const token = sessionStorage.getItem('token');
+
+  return this.http.patch<{ message: string }>(
+    `${this.apiUrl}/${id}/cancel`,
+    {},
+    {
+      headers: { Authorization: `Bearer ${token}` }
     }
+  );
+}
 
     // update order status
     updateOrderStatus(id: number, status: string) : Observable<{message:string}> {

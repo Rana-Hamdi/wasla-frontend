@@ -50,6 +50,8 @@ async login() {
 
       if (data.token) {
         sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('role', data.role);
+
 
         if (data.role === 'business') {
           await this.router.navigate(['/dashboard']);
