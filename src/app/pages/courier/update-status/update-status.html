@@ -1,0 +1,103 @@
+<div class="page-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        ACTIVE DELIVERY <span class="eyebrow-separator">·</span> {{ order?.tracking_number || 'LOADING...' }}
+      </div>
+      <h1>Update shipment status</h1>
+      <p class="page-subtitle">Keep the customer informed as the delivery progresses.</p>
+    </div>
+  </div>
+
+  <!-- Loading / Alerts -->
+  <div class="state-container" *ngIf="loading">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Success Alert -->
+<div class="alert alert-success" *ngIf="successMessage">
+  <div class="alert-content">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </svg>
+    <span>{{ successMessage }}</span>
+  </div>
+  <button class="alert-close" (click)="successMessage = ''">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+</div>
+
+<!-- Error Alert -->
+<div class="alert alert-error" *ngIf="errorMessage">
+  <div class="alert-content">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <span>{{ errorMessage }}</span>
+  </div>
+  <button class="alert-close" (click)="errorMessage = ''">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+</div>
+
+  <!-- Main Content -->
+  <ng-container *ngIf="!loading && order">
+    <div class="content-grid">
+
+      <!-- Left Column: Update Status -->
+      <section class="status-card">
+        <div class="card-body">
+          
+          <div class="section-title">Choose the current status</div>
+          <p class="section-subtitle">Select the latest milestone for this shipment.</p>
+
+          <!-- Status Options -->
+          <div class="status-options">
+            <label class="status-option" 
+                   *ngFor="let option of statusOptions"
+                   [class.selected]="selectedStatus === option.value"
+                   [class.status-picked-up]="option.value === 'picked_up'"
+                   [class.status-in-transit]="option.value === 'in_transit'"
+                   [class.status-delivered]="option.value === 'delivered'">
+              
+              <input type="radio" name="status" [value]="option.value" [(ngModel)]="selectedStatus" />
+              
+              <div class="option-icon">
+                <svg *ngIf="option.value === 'picked_up'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 8-9-5-9 5 9 5 9-5Z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>
+                <svg *ngIf="option.value === 'in_transit'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17h4V5H2v12h3"></path><path d="M14 9h4l4 4v4h-3"></path><circle cx="7.5" cy="17.5" r="2.5"></circle><circle cx="16.5" cy="17.5" r="2.5"></circle></svg>
+                <svg *ngIf="option.value === 'delivered'" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><path d="m9 11 3 3L22 4"></path></svg>
+              </div>
+
+              <div class="option-content">
+                <span class="option-title">{{ option.label }}</span>
+                <span class="option-description">{{ option.description }}</span>
+              </div>
+
+              <span class="radio-indicator"></span>
+            </label>
+          </div>
+
+          <!-- Notes -->
+          <div class="notes-section">
+            <label>Add a note (optional)</label>
+            <textarea [(ngModel)]="notes" rows="4" placeholder="e.g. Customer requested delivery at reception"></textarea>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- Full Width Footer Button -->
+    <div class="action-footer">
+      <button class="submit-btn" (click)="submitStatus()" [disabled]="!selectedStatus || submitting">
+        {{ submitting ? 'Updating...' : 'Confirm status update' }}
+      </button>
+    </div>
+  </ng-container>
+</div>

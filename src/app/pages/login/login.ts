@@ -22,54 +22,62 @@ export class Login {
   error = '';
   loading = false;
 
-  async login() {
+  
+async login() {
+  this.message = '';
+  this.error = '';
+  this.loading = true;
 
-    this.message = '';
-    this.error = '';
-    this.loading = true;
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.email,
+        password: this.password
+      })
+    });
 
-    try {
+    if (response.ok) {
+      const data = await response.json();
 
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: this.email,
-          password: this.password
-        })
+      console.log('Login user:', {
+        role: data.role,
+        full_name: data.full_name
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Login user:', {
-          role: data.role,
-          full_name: data.full_name
-        });
+      if (data.token) {
+        sessionStorage.setItem('token', data.token);
 
-        if (data.token) {
-          sessionStorage.setItem('token', data.token);
-          if (data.role === 'business') {
-             await this.router.navigate(['/dashboard']);
-              } else if (data.role === 'admin') {
-              await this.router.navigate(['/admin/dashboard']);
-                } else {
-                 this.message = 'Login successful!';
-                   }
+        if (data.role === 'business') {
+          await this.router.navigate(['/dashboard']);
+
+        } else if (data.role === 'admin') {
+          await this.router.navigate(['/admin/dashboard']);
+
+        } else if (data.role === 'courier') {
+          await this.router.navigate(['/courier/assigned-orders']);
+
         } else {
-          this.error = 'Login response is missing a token.';
+          this.error = `Unknown user role: ${data.role}`;
         }
 
       } else {
-        this.error = 'Incorrect email or password.';
+        this.error = 'Login response is missing a token.';
       }
 
-    } catch {
-      this.error = 'Cannot connect to the backend.';
+    } else {
+      this.error = 'Incorrect email or password.';
     }
 
-    this.loading = false;
-     this.cdr.markForCheck();
+  } catch {
+    this.error = 'Cannot connect to the backend.';
   }
+
+  this.loading = false;
+  this.cdr.markForCheck();
+}
+
 }

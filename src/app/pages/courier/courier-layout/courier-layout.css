@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 1. Reset the layout to touch the edges */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #f8fafc;
+}
+
+.courier-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: #193B56; /* Exact sidebar blue */
+  color: white;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  
+  /* 2. Fix the sidebar to the left */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 12px 28px;
+  margin: -20px -16px 0;
+  border-bottom: 1px solid #2a4d69;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #ff7900;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon svg {
+  width: 22px;
+  height: 22px;
+  color: white;
+}
+
+.sidebar-logo h2 {
+  margin: 0;
+  color: white;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.sidebar-logo h2 span {
+  color: #ff7900;
+}
+
+/* Courier Partner Box */
+.courier-profile {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Navigation */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-nav a {
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sidebar-nav a svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sidebar-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.sidebar-nav a.active {
+  background-color: #2a4d69;
+  color: white;
+  border-left: 3px solid #ff7900;
+}
+
+.nav-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 16px 0;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.logout-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #dcfce7;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.user-avatar.sm {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  background-color: #ccfbf1;
+  color: #0f766e;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+}
+
+.user-role {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.user-more {
+  margin-left: auto;
+  color: #94a3b8;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* --- Main Content Area --- */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  
+  /* 3. Push the main content to the right by the width of the fixed sidebar */
+  margin-left: 260px; 
+  background-color: #f8fafc;
+}
+
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  background-color: #f8fafc;
+  padding: 0; 
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .search-bar {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 210px;
+    padding: 20px 12px;
+  }
+  .main-content {
+    margin-left: 210px; /* Update margin for smaller sidebar */
+  }
+  .top-navbar {
+    padding: 0 20px;
+  }
+  .search-bar {
+    display: none; 
+  }
+}

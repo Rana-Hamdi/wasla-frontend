@@ -1,0 +1,357 @@
+/* --- Page Layout & Header --- */
+.page-content {
+  width: 100%;
+  padding: 32px; 
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #0f172a;
+  background-color: #f8fafc;
+  min-height: 100%; /* Changed from 100vh to prevent scrollbar issues */
+}
+
+.page-header {
+  margin-bottom: 32px;
+  max-width: 1200px; 
+}
+
+.breadcrumb {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0ea5e9; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* --- Order Cards --- */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1200px; 
+}
+
+
+/* --- Order Cards --- */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.order-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.card-header {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #ffffff;
+}
+
+.order-ids {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.assignment-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.order-number {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.status-badge.accepted {
+  background-color: #dcfce7; /* Light green from pic */
+  color: #16a34a; /* Dark green text */
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.card-body {
+  display: flex;
+  padding: 24px;
+  gap: 32px;
+}
+
+.route-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-step {
+  display: flex;
+  gap: 16px;
+  position: relative;
+}
+
+.step-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.step-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.step-icon.pickup {
+  color: #0d9488; /* Teal ring */
+  border: 2px solid #0d9488;
+}
+
+.step-icon.dropoff {
+  color: #f97316; /* Orange ring */
+  border: 2px solid #f97316;
+}
+
+.route-connector {
+  width: 2px;
+  height: 40px;
+  border-left: 2px dashed #cbd5e1;
+  margin-left: 11px;
+  margin-top: -4px;
+  margin-bottom: -4px;
+}
+
+.step-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 24px;
+}
+
+.step-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.step-location {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.step-address {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.delivery-details {
+  width: 320px;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-label {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Call customer button outline */
+.btn-outline {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Decline button */
+.btn-outline.danger {
+  color: #ef4444; /* Red text */
+  border: 1px solid #fca5a5; /* Red border */
+}
+
+.btn-outline.danger:hover:not(:disabled) {
+  background-color: #fef2f2;
+}
+
+/* Accept / Continue Delivery Button - Wasla Orange */
+.btn-primary {
+  background-color: #f97316;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #ea580c;
+}
+
+.call-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 12px;
+  font-weight: 600;
+}
+
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.card-footer {
+  padding: 16px 24px;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Utility */
+.loading-state, .error-banner, .empty-state {
+  padding: 40px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.error-banner {
+  color: #ef4444;
+  background-color: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* Update this specific block in your CSS */
+.route-step.line-container {
+  height: 30px; /* Adjust height to match the gap between cards */
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+.route-connector {
+  width: 2px;
+  height: 100%;
+  border-left: 2px dashed #cbd5e1;
+  margin-left: 11px; /* Centers it under the 24px icon */
+}
+
+/* Add this for the Delivered state button */
+.btn-outline.success {
+  color: #16a34a;
+  border-color: #bbf7d0;
+  background-color: #f0fdf4;
+  opacity: 1 !important;
+  cursor: default;
+}
+
+@media (max-width: 992px) {
+  .card-body {
+    flex-direction: column;
+  }
+  .delivery-details {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #e2e8f0;
+    padding-left: 0;
+    padding-top: 24px;
+  }
+}

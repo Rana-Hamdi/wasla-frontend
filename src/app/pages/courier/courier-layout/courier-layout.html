@@ -1,0 +1,53 @@
+<div class="courier-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg lucideRoute></svg>
+      </div>
+      <h2>wasla<span>.</span></h2>
+    </div>
+
+    <!-- Courier Partner Box -->
+    <div class="courier-profile">
+      <span class="profile-label">COURIER PARTNER</span>
+      <span class="profile-name">{{ userName }}</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      
+      <a routerLink="/courier/assigned-orders" routerLinkActive="active">
+        <svg lucideClipboardList></svg>
+        Assigned Orders
+      </a>
+      
+      <div class="nav-divider"></div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" (click)="logout()">
+        <svg lucideLogOut></svg>
+        Log out
+      </button>
+      
+      <div class="sidebar-user">
+        <div class="user-avatar">{{ userInitials }}</div>
+        <div class="user-info">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-role">Courier Partner</span>
+        </div>
+        <span class="user-more">•••</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Top Navbar -->
+
+    <!-- Router Outlet -->
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
